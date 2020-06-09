@@ -1,15 +1,14 @@
 const express = require("express");
-const loginRouter = require("../routes/loginRouter.js");
-const registerRouter = require("../routes/registerRouter.js");
+const authRouter = require("../auth/authRouter.js");
 const server = express();
 
 server.use(express());
-server.use("/api/users/login", loginRouter);
-server.use("/api/users/register", registerRouter);
 server.use(express.json());
+server.use("/api/users", authRouter);
+
 
 server.get("/", (req, res) => {
-  res.send("Server running");
+  res.send("<h1>Server running</h1>");
 });
 
 module.exports = server;

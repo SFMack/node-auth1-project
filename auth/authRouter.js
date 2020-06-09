@@ -17,16 +17,17 @@ router.get("/", (req, res) => {
 });
 
 // login user
-router.post("/register", async (req, res) => {
+router.post("/register", (req, res) => {
   let user = req.body;
+  console.log(user)
 
-  try {
-    const saved = await Users.add(user);
-    res.status(201).json(saved);
-  } catch (err) {
-    console.log(err);
-    res.status;
-  }
+  // try {
+  //   const saved = await Users.add(user);
+  //   res.status(201).json(saved);
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status;
+  // }
 });
 
 module.exports = router;
