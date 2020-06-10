@@ -26,10 +26,26 @@ router.post("/register", async (req, res) => {
   try {
     const saved = await Users.add(user);
     res.status(201).json(saved);
-  } catch (err) {
-    console.log(err);
-    res.status;
+  } catch (error) {
+    console.log(error);
+    res.status(404).json(error);
   }
 });
+
+router.post("/login", async (req, res) => {
+  let { username, password } = req.body;
+
+  try {
+    const foundUser = await Users.findBy({ username }).first();
+    if(foundUser && bcrypt.compareSync(password, foundUser.password)) {
+      res.status(200).json({ message: `Welcome, ${user.username}!` })
+    } else {
+      res.status(401).json({ message: 'Invalid credentials'})
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+})
 
 module.exports = router;
