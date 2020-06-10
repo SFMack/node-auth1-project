@@ -1,5 +1,6 @@
 const express = require("express");
 const db = require("../data/dbConfig.js");
+const bcrypt = require('bcryptjs');
 const Users = require("../users/users-model.js");
 
 const router = express.Router();
@@ -16,18 +17,19 @@ router.get("/", (req, res) => {
     });
 });
 
-// login user
-router.post("/register", (req, res) => {
+// register user
+router.post("/register", async (req, res) => {
   let user = req.body;
-  console.log(user)
+  const hash = bcrypt.hashSync(user.password, 14);
+  user.password = hash;
 
-  // try {
-  //   const saved = await Users.add(user);
-  //   res.status(201).json(saved);
-  // } catch (err) {
-  //   console.log(err);
-  //   res.status;
-  // }
+  try {
+    const saved = await Users.add(user);
+    res.status(201).json(saved);
+  } catch (err) {
+    console.log(err);
+    res.status;
+  }
 });
 
 module.exports = router;
