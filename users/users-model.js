@@ -10,5 +10,5 @@ async function add(user) {
 }
 
 function findBy(username) {
-  return db('users').where({ username }).orderBy("id");  
+  return db('users').where( username ).orderBy("id");  
 }
