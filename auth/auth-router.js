@@ -20,6 +20,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// login user
 router.post("/login", async (req, res) => {
   let { username, password } = req.body;
 
@@ -35,6 +36,21 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
+  }
+})
+
+// logout user
+router.get('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.send('Could not destroy the session...')
+      } else {
+        res.send('Goodbye!')
+      }
+    })
+  } else {
+    res.end();
   }
 })
 

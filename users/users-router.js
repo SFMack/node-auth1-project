@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const db = require("../data/dbConfig.js");
-// const Users = require('../users/users-model.js');
+const restricted = require('../auth/restricted-middleware.js');
 
 // READ
 // read all users
-router.get("/", (req, res) => {
+router.get("/", restricted, (req, res) => {
     db("users")
       .then(usersData => {
         res.status(200).json(usersData);
