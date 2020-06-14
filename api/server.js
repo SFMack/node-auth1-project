@@ -1,7 +1,9 @@
 const express = require("express");
-const authRouter = require("../auth/authRouter.js");
+const authRouter = require("../auth/auth-router.js");
+const usersRouter = require('../auth/users-router.js');
 const server = express();
 const session = require('express-session');
+const cors = require('cors');
 
 const sessionConfig = {
   name: 'macksession', // default sid
@@ -17,7 +19,9 @@ const sessionConfig = {
 
 server.use(session(sessionConfig));
 server.use(express.json());
-server.use("/api/users", authRouter);
+server.use(cors());
+server.use("/api/auth", authRouter);
+server.use("/api/users", usersRouter);
 
 
 
